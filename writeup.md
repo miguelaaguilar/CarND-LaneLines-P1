@@ -31,22 +31,46 @@ My pipeline consisted of 7 steps decribed as following:
 
 #### 1. Gray Scale
 
+The first step is to convert the image to gray scale with 
+
 ![alt text][gray]
 
 #### 2. Contrast Improvement
+
+I added a bit of contrast improvement to help in cases such in the challenge video, where the contrast of the lane is low due to the color of a road section
 
 ![alt text][contrast]
 
 #### 3. Gaussian
 
+The Gaussian Blur is applied using the function cv2.GaussianBlur()
+
 ![alt text][gaussian]
 
-First, I converted the images to grayscale, then I .... 
+#### 4. Canny
 
-In order to draw a single line on the left and right lanes, I modified the draw_lines() function by ...
+The Canny transform is applied using the function cv2.Canny()
 
-If you'd like to include images to show how the pipeline works, here is how to include an image: 
+![alt text][canny]
 
+#### 5. Region Definition
+
+I defined narrow regions removing the area in the middle of the lanes to filter out any noise comming for example of shades of tree, etc.
+
+![alt text][region1]
+![alt text][region2]
+
+#### 6. Hogh Lines
+
+I modified the draw_lines() function by using linear region to find the lines. First I divided the list into the ones that belong to the left lane and the ones to the right lane. Using the points that define those lines I performed the linear region using the functions np.polyfit() and np.poly1d(z_left). The linear regression allowed to consolidate and extrapolate both lines.
+
+![alt text][lines]
+
+#### 7. Final Images
+
+The final images look as follows:
+
+![alt text][final]
 
 ### 2. Potential shortcomings of the pipeline
 
